@@ -19,7 +19,7 @@ def register():
             error = 'Username is required.'
         elif not password:
             error = 'Password is required.'
-        elif de.execute(
+        elif db.execute(
             'SELECT id FROM user WHERE username = ?', (username, )
         ).fetchone() is not None:
             error = 'User {} is already registerd.'.format(username)
@@ -47,7 +47,7 @@ def login():
             'SELECT * FROM user WHERE username = ?', (username,)
         ).fetchone()
         
-        if user in None:
+        if user is None:
             error = 'Incorrect username.'
         elif not check_password_hash(user['password'], password):
             error = 'Incorrect password.'
